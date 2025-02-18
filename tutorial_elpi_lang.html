@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" class="alectryon-standalone" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<title>Tutorial on the Elpi programming language</title>
+<meta name="generator" content="Docutils 0.21.2: https://docutils.sourceforge.io/" />
 <meta name="author" content="Enrico Tassi" />
+<title>Tutorial on the Elpi programming language</title>
 <script type="text/javascript" defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.min.js?config=TeX-AMS_CHTML"></script>
 <link rel="stylesheet" href="alectryon.css" type="text/css" />
 <link rel="stylesheet" href="docutils_basic.css" type="text/css" />
@@ -16,7 +16,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<div class="alectryon-root alectryon-centered"><div class="alectryon-banner">Built with <a href="https://github.com/cpitclaudel/alectryon/">Alectryon</a>, running Coq+SerAPI v8.13.0+0.13.0. Bubbles (<span class="alectryon-bubble"></span>) indicate interactive fragments: hover for details, tap to reveal contents. Use <kbd>Ctrl+↑</kbd> <kbd>Ctrl+↓</kbd> to navigate, <kbd>Ctrl+🖱️</kbd> to focus. On Mac, use <kbd>⌘</kbd> instead of <kbd>Ctrl</kbd>.</div><div class="document" id="tutorial-on-the-elpi-programming-language">
+<div class="alectryon-root alectryon-centered"><div class="alectryon-banner">Built with <a href="https://github.com/cpitclaudel/alectryon/">Alectryon</a>, running Coq+SerAPI v8.20.0+0.20.0. Bubbles (<span class="alectryon-bubble"></span>) indicate interactive fragments: hover for details, tap to reveal contents. Use <kbd>Ctrl+↑</kbd> <kbd>Ctrl+↓</kbd> to navigate, <kbd>Ctrl+🖱️</kbd> to focus. On Mac, use <kbd>⌘</kbd> instead of <kbd>Ctrl</kbd>.</div><div class="document" id="tutorial-on-the-elpi-programming-language">
 <h1 class="title">Tutorial on the Elpi programming language</h1>
 <table class="docinfo" frame="void" rules="none">
 <col class="docinfo-name" />
@@ -145,42 +145,50 @@ Prolog, λProlog or Elpi. Coq is used as an environment for stepping trough
 the tutorial one paragraph at a time. The text between <code class="highlight coq"><span class="si">lp:{{</span></code> and <code class="highlight coq"><span class="o">}}</span></code> is
 Elpi code, while the rest are Coq directives to drive the Elpi interpreter.</p>
 <div class="contents topic" id="contents">
-<p class="topic-title">Contents</p>
+<p class="topic-title"><a class="reference internal" href="#top">Contents</a></p>
 <ul class="simple">
-<li><a class="reference internal" href="#logic-programming" id="id3">Logic programming</a><ul>
-<li><a class="reference internal" href="#unification" id="id4">Unification</a></li>
-<li><a class="reference internal" href="#backtracking" id="id5">Backtracking</a></li>
-<li><a class="reference internal" href="#facts-and-conditional-rules" id="id6">Facts and conditional rules</a></li>
+<li><a class="reference internal" href="#logic-programming" id="toc-entry-1">Logic programming</a><ul>
+<li><a class="reference internal" href="#unification" id="toc-entry-2">Unification</a></li>
+<li><a class="reference internal" href="#backtracking" id="toc-entry-3">Backtracking</a></li>
+<li><a class="reference internal" href="#facts-and-conditional-rules" id="toc-entry-4">Facts and conditional rules</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#higher-order-features" id="id7">Higher order features</a><ul>
-<li><a class="reference internal" href="#abstraction" id="id8">λ-abstraction</a></li>
-<li><a class="reference internal" href="#pi-x-and" id="id9"><code class="e elpi"><span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ </code> and <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code></a></li>
+<li><a class="reference internal" href="#terms-with-binders" id="toc-entry-5">Terms with binders</a><ul>
+<li><a class="reference internal" href="#abstraction" id="toc-entry-6">λ-abstraction</a></li>
+<li><a class="reference internal" href="#pi-x-and" id="toc-entry-7"><code class="e elpi"><span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ </code> and <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#logical-foundations" id="id10">Logical foundations</a></li>
-<li><a class="reference internal" href="#modes-and-constraints" id="id11">Modes and constraints</a><ul>
-<li><a class="reference internal" href="#constraint-handling-rules" id="id12">Constraint Handling Rules</a></li>
+<li><a class="reference internal" href="#logical-foundations" id="toc-entry-8">Logical foundations</a></li>
+<li><a class="reference internal" href="#modes-and-constraints" id="toc-entry-9">Modes and constraints</a><ul>
+<li><a class="reference internal" href="#constraint-handling-rules" id="toc-entry-10">Constraint Handling Rules</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id2" id="id13">Functional style</a><ul>
-<li><a class="reference internal" href="#spilling-relation-composition" id="id14">Spilling (relation composition)</a></li>
-<li><a class="reference internal" href="#apis-for-built-in-data" id="id15">APIs for built-in data</a></li>
-<li><a class="reference internal" href="#allocation-of-variables" id="id16">Allocation of variables</a></li>
+<li><a class="reference internal" href="#functional-style-1" id="toc-entry-11">Functional style</a><ul>
+<li><a class="reference internal" href="#spilling-relation-composition" id="toc-entry-12">Spilling (relation composition)</a></li>
+<li><a class="reference internal" href="#apis-for-built-in-data" id="toc-entry-13">APIs for built-in data</a></li>
+<li><a class="reference internal" href="#allocation-of-variables" id="toc-entry-14">Allocation of variables</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#debugging" id="id17">Debugging</a><ul>
-<li><a class="reference internal" href="#pitfalls" id="id18">Pitfalls</a></li>
+<li><a class="reference internal" href="#debugging" id="toc-entry-15">Debugging</a><ul>
+<li><a class="reference internal" href="#trace-browser" id="toc-entry-16">Trace browser</a></li>
+<li><a class="reference internal" href="#good-old-print" id="toc-entry-17">Good old print</a></li>
+<li><a class="reference internal" href="#printing-entire-programs" id="toc-entry-18">Printing entire programs</a></li>
+<li><a class="reference internal" href="#common-pitfalls" id="toc-entry-19">Common pitfalls</a><ul>
+<li><a class="reference internal" href="#precedence-of-e-and" id="toc-entry-20">Precedence of <code class="e elpi"><span class="k-ElpiKeyword">,</span></code>, :e: <code class="highlight coq"><span class="o">==&gt;</span></code> and <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code></a></li>
+<li><a class="reference internal" href="#backtracking-1" id="toc-entry-21">Backtracking</a></li>
+<li><a class="reference internal" href="#unification-variables-v-s-imperative-variables" id="toc-entry-22">Unification variables v.s. Imperative variables</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#further-reading" id="id19">Further reading</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#further-reading" id="toc-entry-23">Further reading</a></li>
 </ul>
 </div>
 <div class="section" id="logic-programming">
-<h1><a class="toc-backref" href="#id3">Logic programming</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-1">Logic programming</a></h1>
 <p>Elpi is a dialect of λProlog enriched with constraints. We start by introducing
 the first order fragment of λProlog, i.e. the terms will not contain binders.
-Later we cover higher order features and constraints.</p>
+Later we cover terms with binders and constraints.</p>
 <p>Our first program is called <code class="highlight coq"><span class="n">tutorial</span></code>.
 We begin by declaring the signature of our terms.
 Here we declare that <code class="e elpi">person</code> is a type, and that
@@ -210,8 +218,8 @@ the latter is an integer. The label <code class="e elpi">o<span class="err">:</s
 is a mode declaration, which we will explain later (ignore it for now).</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p><a class="stdtype ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L19">int</a> is the built-in data type of integers</p>
-<p class="last">Integers come with usual arithemtic operators, see the <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L72">calc</a> built-in.</p>
+<p><a class="reference external stdtype ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L23">int</a> is the built-in data type of integers</p>
+<p class="last">Integers come with usual arithmetic operators, see the <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L85">calc</a> built-in.</p>
 </div>
 <p>In order to run our program we have to write a query,
 i.e. a predicate expression containing variables such as:</p>
@@ -239,14 +247,14 @@ predicate expressions.</p>
 
   age alice <span class=" -ElpiVariable">A</span><span class="k k-ElpiKeyword">,</span> coq.say <span class="s2">&quot;The age of alice is&quot;</span> <span class=" -ElpiVariable">A</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">The age of alice <span class="kr">is</span> <span class="mi">20</span></blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = <span class="mi">20</span></blockquote></div></div></small></span></pre><p><a class="builtin ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/coq-builtin.elpi#L471">coq.say</a> is a built-in predicate provided by Coq-Elpi which
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">The age of alice <span class="kr">is</span> <span class="mi">20</span></blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = <span class="mi">20</span></blockquote></div></div></small></span></pre><p><a class="reference external builtin ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/coq-builtin.elpi#L531">coq.say</a> is a built-in predicate provided by Coq-Elpi which
 prints its arguments.
 You can look at the output buffer of Coq to see the value for <code class="e elpi"><span class="n-ElpiVariable">A</span></code> or hover
 or toggle the little bubble after <code class="highlight coq"><span class="o">}}.</span></code> if you are reading the tutorial with a
 web browser.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p><a class="stdtype ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L22">string</a> is a built-in data type</p>
+<p><a class="reference external stdtype ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L26">string</a> is a built-in data type</p>
 <p class="last">Strings are delimited by double quotes and <tt class="docutils literal">\</tt> is the escape symbol.</p>
 </div>
 <p>The predicate <code class="e elpi">age</code> represents a <em>relation</em> (in contrast to a function)
@@ -256,7 +264,7 @@ and it computes both ways: we can ask Elpi which person <code class="e elpi"><sp
   age <span class=" -ElpiVariable">P</span> <span class="m m-ElpiInteger">23</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">P</span> <span class="s2">&quot;is 23 years old&quot;</span>
 
 <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">mallory <span class="kr">is</span> <span class="mi">23</span> years old</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">P = mallory</blockquote></div></div></small></span></pre><div class="section" id="unification">
-<h2><a class="toc-backref" href="#id4">Unification</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-2">Unification</a></h2>
 <p>Operationally the query <code class="e elpi">age <span class="n-ElpiVariable">P</span> <span class="m-ElpiInteger">23</span></code> is <em>unified</em> with each
 and every rule present in the program starting from the first one.</p>
 <p>Unification compares two
@@ -277,7 +285,7 @@ age <span class="k-ElpiKeyword">=</span> age
 assigning <code class="e elpi">mallory</code> to <code class="e elpi"><span class="n-ElpiVariable">P</span></code>. All equations are solved,
 hence unification succeeds.</p>
 <p>See also the <a class="reference external" href="https://en.wikipedia.org/wiki/Unification_(computer_science)#Syntactic_unification_of_first-order_terms">Wikipedia page on Unification</a>.</p>
-<p>Since the first part of the query is succesful the rest of
+<p>Since the first part of the query is successful the rest of
 the query is run: the value of <code class="e elpi"><span class="n-ElpiVariable">P</span></code> is printed as well as
 the <code class="e elpi"><span class="s2">&quot;is 23 years old&quot;</span></code> string.</p>
 <div class="admonition note">
@@ -308,8 +316,8 @@ age <span class="k-ElpiKeyword">=</span> age
 but the third one has no solution, so unification fails.</p>
 </div>
 <div class="section" id="backtracking">
-<h2><a class="toc-backref" href="#id5">Backtracking</a></h2>
-<p>When failure occurs all assignements are undone (i.e. <code class="e elpi"><span class="n-ElpiVariable">P</span></code> is unset again)
+<h2><a class="toc-backref" href="#toc-entry-3">Backtracking</a></h2>
+<p>When failure occurs all assignments are undone (i.e. <code class="e elpi"><span class="n-ElpiVariable">P</span></code> is unset again)
 and the next rule in the program is tried. This operation is called
 <em>backtracking</em>.</p>
 <p>The unification problem for the next rule is:</p>
@@ -320,7 +328,7 @@ age <span class="n-ElpiVariable">P</span> <span class="m-ElpiInteger">20</span> 
 <pre class="code elpi literal-block">
 age <span class="n-ElpiVariable">P</span> <span class="m-ElpiInteger">20</span> <span class="k-ElpiKeyword">=</span> age alice <span class="m-ElpiInteger">20</span>
 </pre>
-<p>This one works, and the assigment <code class="e elpi"><span class="n-ElpiVariable">P</span> <span class="k-ElpiKeyword">=</span> alice</code> is kept as the result
+<p>This one works, and the assignment <code class="e elpi"><span class="n-ElpiVariable">P</span> <span class="k-ElpiKeyword">=</span> alice</code> is kept as the result
 of the first part of the query. Then <code class="e elpi"><span class="n-ElpiVariable">P</span></code> is printed and the program
 ends.</p>
 <p>An even harder query is the following one where we ask for two distinct
@@ -350,13 +358,13 @@ how backtracking works.</p>
 <p><code class="e elpi">not</code> is a black hole</p>
 <p class="last">The <code class="e elpi">not(<span class="n-ElpiVariable">P</span><span class="o">)</span></code> predicate tries to solve the query <code class="e elpi"><span class="n-ElpiVariable">P</span></code>: it fails if
 <code class="e elpi"><span class="n-ElpiVariable">P</span></code> succeeds, and succeeds if <code class="e elpi"><span class="n-ElpiVariable">P</span></code> fails. In any case no trace is left
-of the computation for <code class="e elpi"><span class="n-ElpiVariable">P</span></code>. E.g. <code class="e elpi">not(<span class="n-ElpiVariable">X</span> <span class="k-ElpiKeyword">=</span> <span class="m-ElpiInteger">1</span><span class="k-ElpiKeyword">,</span> <span class="m-ElpiInteger">2</span> <span class="k-ElpiKeyword">&lt;</span> <span class="m-ElpiInteger">1</span><span class="o">)</span></code> suceeds, but
+of the computation for <code class="e elpi"><span class="n-ElpiVariable">P</span></code>. E.g. <code class="e elpi">not(<span class="n-ElpiVariable">X</span> <span class="k-ElpiKeyword">=</span> <span class="m-ElpiInteger">1</span><span class="k-ElpiKeyword">,</span> <span class="m-ElpiInteger">2</span> <span class="k-ElpiKeyword">&lt;</span> <span class="m-ElpiInteger">1</span><span class="o">)</span></code> succeeds, but
 the assignment for <code class="e elpi"><span class="n-ElpiVariable">X</span></code> is undone. See also the section
 about the <a class="reference internal" href="#foundations">foundations</a> of λProlog.</p>
 </div>
 </div>
 <div class="section" id="facts-and-conditional-rules">
-<h2><a class="toc-backref" href="#id6">Facts and conditional rules</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-4">Facts and conditional rules</a></h2>
 <p>The rules we have seen so far are <em>facts</em>: they always hold.
 In general rules can only be applied if some <em>condition</em> holds. Conditions are
 also called premises, we may use the two terms interchangeably.</p>
@@ -410,8 +418,8 @@ once takes <code class="e elpi">bob</code> and another time takes <code class="e
 
 <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">both bob <span class="kn">and</span> mallory are older than alice</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = alice</blockquote></div></div></small></span></pre></div>
 </div>
-<div class="section" id="higher-order-features">
-<h1><a class="toc-backref" href="#id7">Higher order features</a></h1>
+<div class="section" id="terms-with-binders">
+<h1><a class="toc-backref" href="#toc-entry-5">Terms with binders</a></h1>
 <p>So far the syntax of terms is based on constants
 (eg <code class="e elpi">age</code> or <code class="e elpi">mallory</code>) and variables (eg <code class="e elpi"><span class="n-ElpiVariable">X</span></code>).</p>
 <p>λProlog adds another term constructor:
@@ -424,7 +432,7 @@ symbol or a rule variable (that required the convention of using capitals for
 variables in the first place).</p>
 </div>
 <div class="section" id="abstraction">
-<h2><a class="toc-backref" href="#id8">λ-abstraction</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">λ-abstraction</a></h2>
 <p>Functions built using λ-abstraction can be applied
 to arguments and honor the usual β-reduction rule
 (the argument is substituted for the bound variable).</p>
@@ -533,15 +541,17 @@ rule.</p>
   <span class=" -ElpiVariable">Omega</span> <span class="k k-ElpiKeyword">=</span> <span class="k k-ElpiKeyword">app</span> <span class=" -ElpiVariable">Delta</span> <span class=" -ElpiVariable">Delta</span><span class="k k-ElpiKeyword">,</span>
   whd <span class=" -ElpiVariable">Omega</span> <span class=" -ElpiVariable">Hummm</span><span class="k k-ElpiKeyword">,</span> coq.say <span class="s2">&quot;not going to happen&quot;</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="nb">elpi</span> run out of steps (<span class="mi">1000</span>)</blockquote></div></div></small><span class="alectryon-wsp">
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">137</span>-<span class="mi">142</span>
+Hummm <span class="kr">is</span> linear: name it _Hummm (discard) or Hummm_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="nb">elpi</span> run out of steps (<span class="mi">1000</span>)</blockquote></div></div></small><span class="alectryon-wsp">
 </span></span><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Bound</span> <span class="kn">Steps</span> <span class="mi">0</span>.</span></span></pre></div>
 <div class="section" id="pi-x-and">
-<h2><a class="toc-backref" href="#id9"><code class="e elpi"><span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ </code> and <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code></a></h2>
-<p>We have seen how to implement subtitution using the binders of λProlog.
-More often then not we need to move under binders rather than remove them by
+<h2><a class="toc-backref" href="#toc-entry-7"><code class="e elpi"><span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ </code> and <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code></a></h2>
+<p>We have seen how to implement substitution using the binders of λProlog.
+More often than not we need to move under binders rather than remove them by
 substituting some term in place of the bound variable.</p>
 <p>In order to move under a binder and inspect the body of a function λProlog
-provides the <code class="e elpi">pi</code> quatifier and the <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> connective.</p>
+provides the <code class="e elpi">pi</code> quantifier and the <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> connective.</p>
 <p>A good showcase for these features is to implement a type checker
 for the simply typed lambda calculus.
 See also <a class="reference external" href="https://en.wikipedia.org/wiki/Simply_typed_lambda_calculus">the Wikipedia page on the simply typed lambda calculus</a>.</p>
@@ -561,15 +571,15 @@ we provide two rules, one for each term constructor.</p>
     of <span class=" -ElpiVariable">Hd</span> (arr <span class=" -ElpiVariable">A</span> <span class=" -ElpiVariable">B</span>)<span class="k k-ElpiKeyword">,</span> of <span class=" -ElpiVariable">Arg</span> <span class=" -ElpiVariable">A</span>.
 
   <span class="c">% for lambda, instead of using a context (a list) of bound</span>
-  <span class="c">% variables we use pi and =&gt; , explained below</span>
+  <span class="c">% variables we use pi and ==&gt; , explained below</span>
   of (<span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">F</span>) (arr <span class=" -ElpiVariable">A</span> <span class=" -ElpiVariable">B</span>) <span class="k k-ElpiKeyword">:-</span>
-    <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\ of x <span class=" -ElpiVariable">A</span> <span class="k k-ElpiKeyword">=&gt;</span> of (<span class=" -ElpiVariable">F</span> x) <span class=" -ElpiVariable">B</span>.
+    <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\ of x <span class=" -ElpiVariable">A</span> <span class="k k-ElpiKeyword">==&gt;</span> of (<span class=" -ElpiVariable">F</span> x) <span class=" -ElpiVariable">B</span>.
 
 <span class="si">}}</span>.</span></span></pre><p>The <code class="e elpi"><span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">name</span>\ code</code> syntax is reserved, as well as
-<code class="e elpi"><span class="k-ElpiKeyword">rule</span> <span class="k-ElpiKeyword">=&gt;</span> code</code>.</p>
+<code class="e elpi"><span class="k-ElpiKeyword">rule</span> <span class="k-ElpiKeyword">==&gt;</span> code</code>.</p>
 <p>Operationally <code class="e elpi"><span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ code</code> introduces a fresh
 constant <code class="e elpi">c</code> for <code class="e elpi">x</code> and then runs <code class="e elpi">code</code>.
-Operationally <code class="e elpi"><span class="k-ElpiKeyword">rule</span> <span class="k-ElpiKeyword">=&gt;</span> code</code> adds <code class="e elpi"><span class="k-ElpiKeyword">rule</span></code> to
+Operationally <code class="e elpi"><span class="k-ElpiKeyword">rule</span> <span class="k-ElpiKeyword">==&gt;</span> code</code> adds <code class="e elpi"><span class="k-ElpiKeyword">rule</span></code> to
 the program and runs <code class="e elpi">code</code>.  Such extra rule is
 said to be hypothetical.
 Both the constant for <code class="e elpi">x</code> and <code class="e elpi"><span class="k-ElpiKeyword">rule</span></code> are
@@ -607,7 +617,7 @@ the role of <code class="e elpi">x</code></li>
 <li>the <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> connective adds the rule <code class="e elpi">of c2 <span class="n-ElpiVariable">A2</span></code> the program</li>
 <li>the new query <code class="e elpi">of c1 <span class="n-ElpiVariable">B2</span></code> is run.</li>
 </ul>
-<p>The (hypotetical) rule <code class="e elpi">of c1 <span class="n-ElpiVariable">A1</span></code> is used:</p>
+<p>The (hypothetical) rule <code class="e elpi">of c1 <span class="n-ElpiVariable">A1</span></code> is used:</p>
 <ul class="simple">
 <li>unification assigns <code class="e elpi"><span class="n-ElpiVariable">A1</span></code> to <code class="e elpi"><span class="n-ElpiVariable">B2</span></code></li>
 </ul>
@@ -619,7 +629,9 @@ for λx.λy.x (the first argument and the output have the same type <code class=
   <span class=" -ElpiVariable">Delta</span> <span class="k k-ElpiKeyword">=</span> <span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">app</span> x x)<span class="k k-ElpiKeyword">,</span>
   (of <span class=" -ElpiVariable">Delta</span> <span class=" -ElpiVariable">Ty</span> <span class="k k-ElpiKeyword">;</span> coq.say <span class="s2">&quot;Error:&quot;</span> <span class=" -ElpiVariable">Delta</span> <span class="s2">&quot;has no type&quot;</span>)
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Error: <span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0 has no type</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Delta = <span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0</blockquote><blockquote class="alectryon-message">Ty = X0</blockquote></div></div></small></span></pre><p>The <code class="e elpi"><span class="k-ElpiKeyword">;</span></code> infix operator stands for disjunction. Since we see the message
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">58</span>-<span class="mi">60</span>
+Ty <span class="kr">is</span> linear: name it _Ty (discard) or Ty_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Error: <span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0 has no type</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Delta = <span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0</blockquote><blockquote class="alectryon-message">Ty = X0</blockquote></div></div></small></span></pre><p>The <code class="e elpi"><span class="k-ElpiKeyword">;</span></code> infix operator stands for disjunction. Since we see the message
 <code class="e elpi">of</code> failed: the term <code class="e elpi">fun (<span class="n-ElpiVariable">x\</span> app x x<span class="o">)</span></code> is not well typed.</p>
 <p>First, the rule for elpi:<code class="highlight coq"><span class="kr">fun</span></code> is selected:</p>
 <ul class="simple">
@@ -631,7 +643,7 @@ role of <code class="e elpi">x</code></li>
 </ul>
 <p>Then it's the turn of typing the application:</p>
 <ul>
-<li><p class="first">the query <code class="e elpi">of c1 (arr <span class="n-ElpiVariable">A2</span> <span class="n-ElpiVariable">B2</span><span class="o">)</span></code> assignes to <code class="e elpi"><span class="n-ElpiVariable">A1</span></code> the
+<li><p class="first">the query <code class="e elpi">of c1 (arr <span class="n-ElpiVariable">A2</span> <span class="n-ElpiVariable">B2</span><span class="o">)</span></code> assigns to <code class="e elpi"><span class="n-ElpiVariable">A1</span></code> the
 value <code class="e elpi">arr <span class="n-ElpiVariable">A2</span> <span class="n-ElpiVariable">B2</span></code>.  This means that the
 hypothetical rule is now <code class="e elpi">of c1 (arr <span class="n-ElpiVariable">A2</span> <span class="n-ElpiVariable">B2</span><span class="o">)</span></code>.</p>
 </li>
@@ -646,7 +658,7 @@ fails the so called occur check.</p>
 </div>
 </div>
 <div class="section" id="logical-foundations">
-<span id="foundations"></span><h1><a class="toc-backref" href="#id10">Logical foundations</a></h1>
+<span id="foundations"></span><h1><a class="toc-backref" href="#toc-entry-8">Logical foundations</a></h1>
 <p>This section tries to link, informally, λProlog with logic, assuming the reader
 has some familiarity with first order intuitionistic logic and proof theory.
 The reader which is not familiar with that can probably skip this section,
@@ -679,7 +691,7 @@ the solution of <code class="e elpi">p</code>.</p>
 <p>A rule like:</p>
 <pre class="code elpi literal-block">
 of (fun <span class="n-ElpiVariable">F</span><span class="o">)</span> (arr <span class="n-ElpiVariable">A</span> <span class="n-ElpiVariable">B</span><span class="o">)</span> <span class="k-ElpiKeyword">:-</span>
-  <span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ of x <span class="n-ElpiVariable">A</span> <span class="k-ElpiKeyword">=&gt;</span> of (<span class="n-ElpiVariable">F</span> x<span class="o">)</span> <span class="n-ElpiVariable">B</span><span class="o">.</span>
+  <span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ of x <span class="n-ElpiVariable">A</span> <span class="k-ElpiKeyword">==&gt;</span> of (<span class="n-ElpiVariable">F</span> x<span class="o">)</span> <span class="n-ElpiVariable">B</span><span class="o">.</span>
 </pre>
 <p>reads, as a logical formula:</p>
 <div class="math">
@@ -706,7 +718,7 @@ and is made of the program rules seen as proof rules or axioms.</p>
 (see also the <a class="reference external" href="https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence#Natural_deduction_and_lambda_calculus">the Wikipedia page on the Curry-Howard correspondence</a>).</p>
 </div>
 <div class="section" id="modes-and-constraints">
-<h1><a class="toc-backref" href="#id11">Modes and constraints</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-9">Modes and constraints</a></h1>
 <p>Elpi extends λProlog with <em>syntactic constraints</em>
 and rules to manipulate the store of constraints.</p>
 <p>Syntactic constraints are goals suspended on
@@ -741,7 +753,11 @@ when the first argument is a variable.  Depending on the
 order of the rules for <code class="e elpi">add</code> Elpi can either diverge or pick
 <code class="e elpi">z</code> as a value for <code class="e elpi"><span class="n-ElpiVariable">X</span></code> (that may not be what one wants)</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Bound</span> <span class="kn">Steps</span> <span class="mi">100</span>.</span><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chke" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chke"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> add <span class=" -ElpiVariable">X</span> (s z) <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="nb">elpi</span> run out of steps (<span class="mi">100</span>)</blockquote></div></div></small><span class="alectryon-wsp">
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chke" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chke"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> add <span class=" -ElpiVariable">X</span> (s z) <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">48</span>-<span class="mi">49</span>
+X <span class="kr">is</span> linear: name it _X (discard) or X_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">56</span>-<span class="mi">57</span>
+Y <span class="kr">is</span> linear: name it _Y (discard) or Y_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="nb">elpi</span> run out of steps (<span class="mi">100</span>)</blockquote></div></div></small><span class="alectryon-wsp">
 </span></span><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Bound</span> <span class="kn">Steps</span> <span class="mi">0</span>.</span></span></pre><p>Indeed the first rule for add can be applied forever.
 If one exchanges the two rules in the program, then Elpi
 terminates picking <code class="e elpi">z</code> for <code class="e elpi"><span class="n-ElpiVariable">X</span></code>.</p>
@@ -763,7 +779,11 @@ sum <span class=" -ElpiVariable">_</span> <span class=" -ElpiVariable">_</span> 
 
 <span class="si">}}</span>.</span><span class="alectryon-wsp">
 </span></span><span class="alectryon-wsp">
-</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chkf" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chkf"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">nothing matched but <span class="kr">for</span> this catch <span class="kp">all</span> clause!</blockquote></div></div></small></span></pre><p>The query fails because no rule first argument matches <code class="e elpi"><span class="n-ElpiVariable">X</span></code>.</p>
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chkf" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chkf"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">255</span>-<span class="mi">256</span>
+X <span class="kr">is</span> linear: name it _X (discard) or X_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">263</span>-<span class="mi">264</span>
+Y <span class="kr">is</span> linear: name it _Y (discard) or Y_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">nothing matched but <span class="kr">for</span> this catch <span class="kp">all</span> clause!</blockquote></div></div></small></span></pre><p>The query fails because no rule first argument matches <code class="e elpi"><span class="n-ElpiVariable">X</span></code>.</p>
 <p>Instead of failing we can suspend goals and turn them into
 syntactic constraints</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Program</span> peano3 <span class="si">lp:{{</span>
@@ -787,7 +807,11 @@ sum <span class=" -ElpiVariable">X</span> <span class=" -ElpiVariable">Y</span> 
 
 <span class="si">}}</span>.</span><span class="alectryon-wsp">
 </span></span><span class="alectryon-wsp">
-</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk10" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk10"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) <span class=" -ElpiVariable">Z</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = X0</blockquote><blockquote class="alectryon-message">Z = X1</blockquote><blockquote class="alectryon-message">Syntactic constraints:
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk10" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk10"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) <span class=" -ElpiVariable">Z</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">479</span>-<span class="mi">480</span>
+X <span class="kr">is</span> linear: name it _X (discard) or X_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">487</span>-<span class="mi">488</span>
+Z <span class="kr">is</span> linear: name it _Z (discard) or Z_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = X0</blockquote><blockquote class="alectryon-message">Z = X1</blockquote><blockquote class="alectryon-message">Syntactic constraints:
  sum X0 (s z) X1  /* suspended on X0 */</blockquote></div></div></small></span></pre><p>Syntactic constraints are resumed when the variable
 they are suspended on is assigned:</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk11" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk11"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span>
@@ -800,10 +824,10 @@ they are suspended on is assigned:</p>
 <li>resumption can cause failure</li>
 <li>recall that <code class="e elpi"><span class="k-ElpiKeyword">;</span></code> stands for disjunction</li>
 </ul>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk12" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk12"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) (s (s z))<span class="k k-ElpiKeyword">,</span>  <span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">=</span> z <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">The <span class="nb">elpi</span> command peano3 failed without giving a
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk12" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk12"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) (s (s z))<span class="k k-ElpiKeyword">,</span>  <span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">=</span> z <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">The <span class="nb">elpi</span> tactic/command peano3 failed without giving a
 specific error message. Please report this
 inconvenience to the authors of the program.</blockquote></div></div></small><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk13" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk13"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) (s (s z))<span class="k k-ElpiKeyword">,</span> (<span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">=</span> z <span class="k k-ElpiKeyword">;</span> <span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">=</span> s z) <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = s z</blockquote></div></div></small></span></pre><p>In this example the computation suspends, then makes progess,
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk13" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk13"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> sum <span class=" -ElpiVariable">X</span> (s z) (s (s z))<span class="k k-ElpiKeyword">,</span> (<span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">=</span> z <span class="k k-ElpiKeyword">;</span> <span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">=</span> s z) <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = s z</blockquote></div></div></small></span></pre><p>In this example the computation suspends, then makes progress,
 then suspends again...</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk14" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk14"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span>
 
@@ -832,7 +856,7 @@ even <span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">:-</spa
 </span></span><span class="alectryon-wsp">
 </span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk15" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk15"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> even (s <span class=" -ElpiVariable">X</span>)<span class="k k-ElpiKeyword">,</span> odd (s <span class=" -ElpiVariable">X</span>) <span class="si">}}</span>. <span class="c">(* hum, not nice *)</span></label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = X0</blockquote><blockquote class="alectryon-message">Syntactic constraints:
  even X0  /* suspended on X0 */ odd X0  /* suspended on X0 */</blockquote></div></div></small></span></pre><div class="section" id="constraint-handling-rules">
-<h2><a class="toc-backref" href="#id12">Constraint Handling Rules</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-10">Constraint Handling Rules</a></h2>
 <p>A constraint (handling) rule can see the store of syntactic constraints
 as a whole, remove constraints and/or create new goals:</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Accumulate</span> <span class="si">lp:{{</span>
@@ -847,25 +871,25 @@ as a whole, remove constraints and/or create new goals:</p>
 
 <span class="si">}}</span>.</span><span class="alectryon-wsp">
 </span></span><span class="alectryon-wsp">
-</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk16" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk16"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> even (s <span class=" -ElpiVariable">X</span>)<span class="k k-ElpiKeyword">,</span> odd (s <span class=" -ElpiVariable">X</span>) <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">X0 can&#39;t be even <span class="kn">and</span> odd <span class="nb">at</span> the same <span class="kp">time</span></blockquote><blockquote class="alectryon-message">The <span class="nb">elpi</span> command peano3 failed without giving a
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk16" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk16"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> even (s <span class=" -ElpiVariable">X</span>)<span class="k k-ElpiKeyword">,</span> odd (s <span class=" -ElpiVariable">X</span>) <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">X0 can&#39;t be even <span class="kn">and</span> odd <span class="nb">at</span> the same <span class="kp">time</span></blockquote><blockquote class="alectryon-message">The <span class="nb">elpi</span> tactic/command peano3 failed without giving a
 specific error message. Please report this
 inconvenience to the authors of the program.</blockquote></div></div></small></span></pre><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last"><code class="e elpi">fail</code> is a predicate with no solution</p>
 </div>
 <p>See also the Wikipedia page on <a class="reference external" href="https://en.wikipedia.org/wiki/Constraint_Handling_Rules">Constraint Handling Rules</a>
-for an introduction to the sub language to manipualte constraints.</p>
+for an introduction to the sub language to manipulate constraints.</p>
 </div>
 </div>
-<div class="section" id="id2">
-<span id="functional-style"></span><h1><a class="toc-backref" href="#id13">Functional style</a></h1>
+<div class="section" id="functional-style-1">
+<span id="functional-style"></span><h1><a class="toc-backref" href="#toc-entry-11">Functional style</a></h1>
 <p>Elpi is a relational language, not a functional one. Still some features
 typical of functional programming are available, with some caveats.</p>
 <div class="section" id="spilling-relation-composition">
-<h2><a class="toc-backref" href="#id14">Spilling (relation composition)</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-12">Spilling (relation composition)</a></h2>
 <p>Chaining &quot;relations&quot; can be painful, especially when
-they look like functions. Here we use <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L504">std.append</a>
-and <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L494">std.rev</a> to build a palindrome:</p>
+they look like functions. Here we use <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L526">std.append</a>
+and <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L514">std.rev</a> to build a palindrome:</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Program</span> function <span class="si">lp:{{</span>
 
 <span class="k k-ElpiKeyword">pred</span> <span class=" -ElpiFunction">make-palindrome</span> <span class="k k-ElpiMode">i:</span><span class="kt">list</span> <span class="kt">A</span>, <span class="k k-ElpiMode">o:</span><span class="kt">list</span> <span class="kt">A</span>.
@@ -880,7 +904,9 @@ make-palindrome <span class=" -ElpiVariable">L</span> <span class=" -ElpiVariabl
 
   make-palindrome <span class="k k-ElpiKeyword">[</span><span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">2</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">3</span><span class="k k-ElpiKeyword">]</span> <span class=" -ElpiVariable">A</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = [<span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>]</blockquote></div></div></small></span></pre><div class="admonition note">
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">193</span>-<span class="mi">194</span>
+A <span class="kr">is</span> linear: name it _A (discard) or A_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = [<span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>]</blockquote></div></div></small></span></pre><div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">variables (capital letters) can be used in
 types in order to describe ML-like polymorphism.</p>
@@ -912,26 +938,28 @@ make-palindrome2 <span class=" -ElpiVariable">L</span> <span class=" -ElpiVariab
 
   make-palindrome2 <span class="k k-ElpiKeyword">[</span><span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">2</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">3</span><span class="k k-ElpiKeyword">]</span> <span class=" -ElpiVariable">A</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = [<span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>]</blockquote></div></div></small></span></pre><p>The two versions of <code class="e elpi">make-palindrome</code> are equivalent.
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">181</span>-<span class="mi">182</span>
+A <span class="kr">is</span> linear: name it _A (discard) or A_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = [<span class="mi">1</span>, <span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">3</span>, <span class="mi">2</span>, <span class="mi">1</span>]</blockquote></div></div></small></span></pre><p>The two versions of <code class="e elpi">make-palindrome</code> are equivalent.
 Actually the latter is elaborated into the former.</p>
 </div>
 <div class="section" id="apis-for-built-in-data">
-<h2><a class="toc-backref" href="#id15">APIs for built-in data</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-13">APIs for built-in data</a></h2>
 <p>Functions about built-in data types are available via the
-<a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L72">calc</a> predicate or its infix version <code class="e elpi"><span class="k-ElpiKeyword">is</span></code>. Example:</p>
+<a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L85">calc</a> predicate or its infix version <code class="e elpi"><span class="k-ElpiKeyword">is</span></code>. Example:</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk19" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk19"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span>
 
    calc ( <span class="s2">&quot;result &quot;</span> <span class="k k-ElpiKeyword">^</span> <span class="s2">&quot;=&quot;</span> ) <span class=" -ElpiVariable">X</span><span class="k k-ElpiKeyword">,</span>
    <span class=" -ElpiVariable">Y</span> <span class="k k-ElpiKeyword">is</span> <span class="m m-ElpiInteger">3</span> <span class="k k-ElpiKeyword">+</span> <span class="m m-ElpiInteger">2</span><span class="k k-ElpiKeyword">,</span>
    coq.say <span class=" -ElpiVariable">X</span> <span class=" -ElpiVariable">Y</span> 
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">result = <span class="mi">5</span></blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = result =</blockquote><blockquote class="alectryon-message">Y = <span class="mi">5</span></blockquote></div></div></small></span></pre><p>The <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L72">calc</a> predicate works nicely with spilling:</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk1a" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk1a"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> coq.say <span class="s2">&quot;result =&quot;</span> {calc (<span class="m m-ElpiInteger">2</span> <span class="k k-ElpiKeyword">+</span> <span class="m m-ElpiInteger">3</span>)} <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">result = <span class="mi">5</span></blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Spilled_1 = <span class="mi">5</span></blockquote></div></div></small></span></pre></div>
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">result = <span class="mi">5</span></blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">X = result =</blockquote><blockquote class="alectryon-message">Y = <span class="mi">5</span></blockquote></div></div></small></span></pre><p>The <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L85">calc</a> predicate works nicely with spilling:</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk1a" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk1a"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> coq.say <span class="s2">&quot;result =&quot;</span> {calc (<span class="m m-ElpiInteger">2</span> <span class="k k-ElpiKeyword">+</span> <span class="m m-ElpiInteger">3</span>)} <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">result = <span class="mi">5</span></blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">%arg1 = <span class="mi">5</span></blockquote></div></div></small></span></pre></div>
 <div class="section" id="allocation-of-variables">
-<h2><a class="toc-backref" href="#id16">Allocation of variables</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-14">Allocation of variables</a></h2>
 <p>The language let's one use λ-abstraction also to write anonymous rules
 but one has to be wary of where variables are bound (allocated really).</p>
-<p>In our example we use the higher order predicate <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L547">std.map</a>:</p>
+<p>In our example we use the higher order predicate <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L573">std.map</a>:</p>
 <pre class="code elpi literal-block">
 <span class="k-ElpiKeyword">pred</span> <span class="n-ElpiFunction">std.map</span> <span class="k-ElpiMode">i:</span><span class="kt">list</span> <span class="kt">A</span>, <span class="k-ElpiMode">i:</span><span class="kt">(A</span> <span class="err">-</span><span class="kt">&gt;</span> <span class="kt">B</span> <span class="err">-</span><span class="kt">&gt;</span> <span class="kt">prop)</span>, <span class="k-ElpiMode">o:</span><span class="kt">list</span> <span class="kt">B</span>.
 </pre>
@@ -974,8 +1002,14 @@ good2 <span class=" -ElpiVariable">L</span> <span class=" -ElpiVariable">Result<
   good <span class="k k-ElpiKeyword">[</span><span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">2</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">3</span><span class="k k-ElpiKeyword">]</span> <span class=" -ElpiVariable">R2</span><span class="k k-ElpiKeyword">,</span>
   good2 <span class="k k-ElpiKeyword">[</span><span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">2</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">3</span><span class="k k-ElpiKeyword">]</span> <span class=" -ElpiVariable">R3</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">R1 = X0</blockquote><blockquote class="alectryon-message">R2 = [<span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">4</span>]</blockquote><blockquote class="alectryon-message">R3 = [<span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">4</span>]</blockquote></div></div></small></span></pre><p>The problem with <code class="e elpi">bad</code> is that <code class="e elpi"><span class="n-ElpiVariable">TMP</span></code> is fresh each time the rule
-is used, but not every time the anonymous rule passed to <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L547">map</a>
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">400</span>-<span class="mi">402</span>
+R1 <span class="kr">is</span> linear: name it _R1 (discard) or R1_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">420</span>-<span class="mi">422</span>
+R2 <span class="kr">is</span> linear: name it _R2 (discard) or R2_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">440</span>-<span class="mi">442</span>
+R3 <span class="kr">is</span> linear: name it _R3 (discard) or R3_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">R1 = X0</blockquote><blockquote class="alectryon-message">R2 = [<span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">4</span>]</blockquote><blockquote class="alectryon-message">R3 = [<span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">4</span>]</blockquote></div></div></small></span></pre><p>The problem with <code class="e elpi">bad</code> is that <code class="e elpi"><span class="n-ElpiVariable">TMP</span></code> is fresh each time the rule
+is used, but not every time the anonymous rule passed to <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L573">map</a>
 is used. Technically <code class="e elpi"><span class="n-ElpiVariable">TMP</span></code> is quantified (allocated) where <code class="e elpi"><span class="n-ElpiVariable">L</span></code>
 and <code class="e elpi"><span class="n-ElpiVariable">Result</span></code> are.</p>
 <p>There are two ways to quantify <code class="e elpi"><span class="n-ElpiVariable">TMP</span></code> correctly, that is inside the
@@ -994,7 +1028,7 @@ the occasion to clarify further the scope of variables.</p>
 <span class="k k-ElpiKeyword">pred</span> <span class=" -ElpiFunction">good3</span> <span class="k k-ElpiMode">i:</span><span class="kt">list</span> <span class="kt">int</span>, <span class="k k-ElpiMode">o:</span><span class="kt">list</span> <span class="kt">int</span>.
 good3 <span class=" -ElpiVariable">L</span> <span class=" -ElpiVariable">Result</span> <span class="k k-ElpiKeyword">:-</span>
   <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">aux</span>\
-    (<span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">TMP X R</span>\ aux <span class=" -ElpiVariable">X</span> <span class=" -ElpiVariable">R</span> <span class="k k-ElpiKeyword">:-</span> <span class=" -ElpiVariable">TMP</span> <span class="k k-ElpiKeyword">is</span> <span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">+</span> <span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span> <span class=" -ElpiVariable">R</span> <span class="k k-ElpiKeyword">=</span> <span class=" -ElpiVariable">TMP</span>) <span class="k k-ElpiKeyword">=&gt;</span>
+    (<span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">TMP X R</span>\ aux <span class=" -ElpiVariable">X</span> <span class=" -ElpiVariable">R</span> <span class="k k-ElpiKeyword">:-</span> <span class=" -ElpiVariable">TMP</span> <span class="k k-ElpiKeyword">is</span> <span class=" -ElpiVariable">X</span> <span class="k k-ElpiKeyword">+</span> <span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span> <span class=" -ElpiVariable">R</span> <span class="k k-ElpiKeyword">=</span> <span class=" -ElpiVariable">TMP</span>) <span class="k k-ElpiKeyword">==&gt;</span>
     std.map <span class=" -ElpiVariable">L</span> aux <span class=" -ElpiVariable">Result</span>.
 
 <span class="si">}}</span>.</span><span class="alectryon-wsp">
@@ -1003,7 +1037,9 @@ good3 <span class=" -ElpiVariable">L</span> <span class=" -ElpiVariable">Result<
 
   good3 <span class="k k-ElpiKeyword">[</span><span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">2</span><span class="k k-ElpiKeyword">,</span><span class="m m-ElpiInteger">3</span><span class="k k-ElpiKeyword">]</span> <span class=" -ElpiVariable">R</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">R = [<span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">4</span>]</blockquote></div></div></small></span></pre><p>In this case the auxiliary predicate <code class="e elpi">aux</code>
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">207</span>-<span class="mi">208</span>
+R <span class="kr">is</span> linear: name it _R (discard) or R_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">R = [<span class="mi">2</span>, <span class="mi">3</span>, <span class="mi">4</span>]</blockquote></div></div></small></span></pre><p>In this case the auxiliary predicate <code class="e elpi">aux</code>
 is only visible inside <code class="e elpi">good3</code>.
 What is interesting to remark is that the quantifications are explicit
 in the hypothetical rule, and they indicate clearly that each and every
@@ -1021,10 +1057,10 @@ at once</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p><code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> can load more than one clause at once</p>
-<p>It is sufficient to put a list on the left hand side, eg <code class="e elpi"><span class="k-ElpiKeyword">[</span> rule1<span class="k-ElpiKeyword">,</span> rule2 <span class="k-ElpiKeyword">]</span> <span class="k-ElpiKeyword">=&gt;</span> code</code>.
+<p>It is sufficient to put a list on the left hand side, eg <code class="e elpi"><span class="k-ElpiKeyword">[</span> rule1<span class="k-ElpiKeyword">,</span> rule2 <span class="k-ElpiKeyword">]</span> <span class="k-ElpiKeyword">==&gt;</span> code</code>.
 Moreover one can synthesize a rule before loading it, eg:</p>
 <pre class="code elpi last literal-block">
-<span class="n-ElpiVariable">Rules</span> <span class="k-ElpiKeyword">=</span> <span class="k-ElpiKeyword">[</span> one-more-rule <span class="k-ElpiKeyword">|</span> <span class="n-ElpiVariable">ExtraRules</span> <span class="k-ElpiKeyword">],</span> <span class="n-ElpiVariable">Rules</span> <span class="k-ElpiKeyword">=&gt;</span> code
+<span class="n-ElpiVariable">Rules</span> <span class="k-ElpiKeyword">=</span> <span class="k-ElpiKeyword">[</span> one-more-rule <span class="k-ElpiKeyword">|</span> <span class="n-ElpiVariable">ExtraRules</span> <span class="k-ElpiKeyword">],</span> <span class="n-ElpiVariable">Rules</span> <span class="k-ElpiKeyword">==&gt;</span> code
 </pre>
 </div>
 <p>The last remark worth making is that bound variables are intimately related
@@ -1040,8 +1076,8 @@ is in general false:</p>
 </div>
 <p>Let's run these two corresponding queries:</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk1d" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk1d"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\ <span class="k k-ElpiKeyword">sigma</span> <span class=" -ElpiVariable">Y</span>\ <span class=" -ElpiVariable">Y</span> <span class="k k-ElpiKeyword">=</span> x<span class="k k-ElpiKeyword">,</span> coq.say <span class="s2">&quot;Y =&quot;</span> <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Y = c0</blockquote></div></div></small><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk1e" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk1e"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> <span class="k k-ElpiKeyword">sigma</span> <span class=" -ElpiVariable">Y</span>\ <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\ <span class=" -ElpiVariable">Y</span> <span class="k k-ElpiKeyword">=</span> x<span class="k k-ElpiKeyword">,</span> coq.say <span class="s2">&quot;Y =&quot;</span> <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">The <span class="nb">elpi</span> command function failed without giving a
-specific error message. Please report this
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk1e" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk1e"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> <span class="k k-ElpiKeyword">sigma</span> <span class=" -ElpiVariable">Y</span>\ <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\ <span class=" -ElpiVariable">Y</span> <span class="k k-ElpiKeyword">=</span> x<span class="k k-ElpiKeyword">,</span> coq.say <span class="s2">&quot;Y =&quot;</span> <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">The <span class="nb">elpi</span> tactic/command function failed without giving
+a specific error message. Please report this
 inconvenience to the authors of the program.</blockquote></div></div></small></span></pre><p>Another way to put it: <code class="e elpi">x</code> is in the scope of <code class="e elpi"><span class="n-ElpiVariable">Y</span></code> only in the first
 formula since it is quantified before it. Hence <code class="e elpi">x</code> can be assigned to
 <code class="e elpi"><span class="n-ElpiVariable">Y</span></code> in that case, but not in the second query, where it is quantified
@@ -1053,7 +1089,7 @@ in the scope:</p>
 <li><p class="first">quantify the unification variable under the bound one (first formula)</p>
 </li>
 <li><p class="first">pass the bound variable to the unification variable explicitly: in this
-the case the unification variable needs to have a functional type.
+case the unification variable needs to have a functional type.
 Indeed <span class="math">\(\exists Y, \forall x, (Y x) = x\)</span> has a solution: <code class="e elpi"><span class="n-ElpiVariable">Y</span></code> can be
 the identity function.</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk1f" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk1f"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> <span class="k k-ElpiKeyword">sigma</span> <span class=" -ElpiVariable">Y</span>\ <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\ <span class=" -ElpiVariable">Y</span> x <span class="k k-ElpiKeyword">=</span> x<span class="k k-ElpiKeyword">,</span> coq.say <span class="s2">&quot;Y =&quot;</span> <span class=" -ElpiVariable">Y</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Y = c1 \ c1</blockquote></div></div></small></span></pre></li>
@@ -1062,7 +1098,7 @@ the identity function.</p>
 λ-abstraction:</p>
 <pre class="code elpi literal-block">
 of (fun <span class="n-ElpiVariable">F</span><span class="o">)</span> (arr <span class="n-ElpiVariable">A</span> <span class="n-ElpiVariable">B</span><span class="o">)</span> <span class="k-ElpiKeyword">:-</span>
-  <span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ of x <span class="n-ElpiVariable">A</span> <span class="k-ElpiKeyword">=&gt;</span> of (<span class="n-ElpiVariable">F</span> x<span class="o">)</span> <span class="n-ElpiVariable">B</span><span class="o">.</span>
+  <span class="k-ElpiKeyword">pi</span> <span class="n-ElpiVariable">x</span>\ of x <span class="n-ElpiVariable">A</span> <span class="k-ElpiKeyword">==&gt;</span> of (<span class="n-ElpiVariable">F</span> x<span class="o">)</span> <span class="n-ElpiVariable">B</span><span class="o">.</span>
 </pre>
 <p>we can see that the only unification variable that sees the fresh
 <code class="highlight coq"><span class="n">x</span></code> is <code class="e elpi"><span class="n-ElpiVariable">F</span></code>, because we pass <code class="e elpi">x</code> to <code class="e elpi"><span class="n-ElpiVariable">F</span></code> explicitly
@@ -1086,7 +1122,7 @@ programming language.</p>
 <p>A slogan to keep in mind is that:</p>
 <div class="admonition important">
 <p class="first admonition-title">Important</p>
-<p class="last">There is not such as thing as a free variable!</p>
+<p class="last">There is no such thing as a free variable!</p>
 </div>
 <p>Indeed the variable bound by the λ-abstraction (of our data) is
 replaced by a fresh variable bound by the context (of our program). This is
@@ -1097,7 +1133,316 @@ introduction to these concepts.</p>
 </div>
 </div>
 <div class="section" id="debugging">
-<h1><a class="toc-backref" href="#id17">Debugging</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-15">Debugging</a></h1>
+<p>The most sophisticated debugging feature can be used via
+the Visual Studio Code extension <tt class="docutils literal"><span class="pre">gares.elpi-lang</span></tt> and its
+<tt class="docutils literal">Elpi Tracer</tt> tab.</p>
+<div class="section" id="trace-browser">
+<h2><a class="toc-backref" href="#toc-entry-16">Trace browser</a></h2>
+<p>In order to generate a trace one needs to execute the
+<tt class="docutils literal">Elpi Trace Browser.</tt> command and then run any Elpi code.</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-wsp"><span class="c">(* Elpi Trace Browser. *)</span>
+
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk20" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk20"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span> <span class="c">% We run the query in the stlc program</span>
+
+  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
+
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">arr X0 (arr X1 X0)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X0 (arr X1 X0)</blockquote></div></div></small></span></pre><p>The trace file is generated in <tt class="docutils literal">/tmp/traced.tmp.json</tt>. 
+If it does not load automatically one can do it manually by clicking on
+the load icon, in the upper right corner of the Elpi Tracer panel.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>partial display of goals</p>
+<p class="last">At the time of writing one may need to disable syntax highlighting in
+the extension settings in order to get a correct display.</p>
+</div>
+<p>The trace browser displays, on the left column, a list of cards corresponding
+to a step performed by the interpreter. The right side of the
+panel gives more details about the selected step. In the image below one
+can see the goal, the rule being applied, the assignments performed by the
+unification of the rule's head with the goal, the subgoals generated.</p>
+<img alt="tracer.png" src="tracer.png" style="width: 800px;" />
+<p>One can also look at the trace in text format (if VSCode is not an option,
+for example).</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span>.</span><span class="alectryon-wsp">
+</span></span><span class="alectryon-wsp">
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk21" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk21"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span> <span class="c">% We run the query in the stlc program</span>
+
+  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
+
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">1</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">4</span> user:curgoal = , 
+                                  of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 , coq.say X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">4</span> user:rule = <span class="kn">and</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">4</span> user:subgoal = <span class="mi">5</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">5</span> user:newgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">4</span> user:subgoal = <span class="mi">6</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">6</span> user:newgoal = coq.say X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">4</span> user:rule:<span class="kn">and</span> = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">2</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">5</span> user:curgoal = of 
+                                  of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">5</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">5</span> user:rule:backchain:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">3</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">5</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+                                             (of (<span class="kr">fun</span> <span class="nv">A0</span>) (arr A2 A1)) :- (
+                                              pi (c0 \
+                                               (of c0 A2 =&gt; of (A0 c0) A1))). 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = A0 := c0 \
+                                 <span class="kr">fun</span> <span class="nv">c1</span> \ c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = X0 := arr X1 X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">5</span> user:subgoal = <span class="mi">7</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">7</span> user:newgoal = pi c0 \ of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">7</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">3</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">7</span> user:curgoal = pi 
+                                  pi c0 \ of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">7</span> user:rule = pi 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">7</span> user:subgoal = <span class="mi">8</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">8</span> user:newgoal = of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">8</span> user:rule:pi = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">4</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">8</span> user:curgoal = =&gt; 
+                                  of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">8</span> user:rule = implication 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">8</span> user:subgoal = <span class="mi">9</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">9</span> user:newgoal = of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">9</span> user:rule:implication = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">9</span> user:curgoal = of 
+                                  of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">9</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">9</span> user:rule:backchain:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">4</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">9</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+                                             (of (<span class="kr">fun</span> <span class="nv">A0</span>) (arr A2 A1)) :- (
+                                              pi (c0 \
+                                               (of c0 A2 =&gt; of (A0 c0) A1))). 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A0 := c1 \
+                                 c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = X2 := arr X3 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">9</span> user:subgoal = <span class="mi">10</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">10</span> user:newgoal = pi c1 \ of c1 X3 =&gt; of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">10</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">6</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">10</span> user:curgoal = pi 
+                                   pi c1 \ of c1 X3 =&gt; of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">10</span> user:rule = pi 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">10</span> user:subgoal = <span class="mi">11</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">11</span> user:newgoal = of c1 X3 =&gt; of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">11</span> user:rule:pi = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">7</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">11</span> user:curgoal = =&gt; 
+                                   of c1 X3 =&gt; of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">11</span> user:rule = implication 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">11</span> user:subgoal = <span class="mi">12</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">12</span> user:newgoal = of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">12</span> user:rule:implication = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">12</span> user:curgoal = of 
+                                   of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">12</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">12</span> user:rule:backchain:candidates = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">12</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+                                              (of c0 X1) :- . 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X1 := X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">12</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">9</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">9</span> gid:<span class="mi">6</span> user:curgoal = coq.say 
+                                  coq.say (arr X4 (arr X3 X4)) 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">9</span> gid:<span class="mi">6</span> user:rule = builtin 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">9</span> gid:<span class="mi">6</span> user:rule:builtin:name = coq.say 
+</blockquote><blockquote class="alectryon-message">arr X4 (arr X3 X4)</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">9</span> gid:<span class="mi">6</span> user:rule:builtin = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X4 (arr X3 X4)</blockquote></div></div></small><span class="alectryon-wsp">
+</span></span><span class="alectryon-wsp">
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk22" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk22"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
+
+  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">app</span> x x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
+
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">1</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">13</span> user:curgoal = , 
+                                   of (<span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0) X0 , coq.say X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">13</span> user:rule = <span class="kn">and</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">13</span> user:subgoal = <span class="mi">14</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">14</span> user:newgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0) X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">13</span> user:subgoal = <span class="mi">15</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">15</span> user:newgoal = coq.say X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">13</span> user:rule:<span class="kn">and</span> = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">2</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">14</span> user:curgoal = of 
+                                   of (<span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0) X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">14</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">14</span> user:rule:backchain:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">3</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">14</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+                                              (of (<span class="kr">fun</span> <span class="nv">A0</span>) (arr A2 A1)) :- (
+                                               pi (c0 \
+                                                (of c0 A2 =&gt; of (A0 c0) A1))). 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = A0 := c0 \
+                                 app c0 c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = X0 := arr X1 X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">14</span> user:subgoal = <span class="mi">16</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">16</span> user:newgoal = pi c0 \ of c0 X1 =&gt; of (app c0 c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">16</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">3</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">16</span> user:curgoal = pi 
+                                   pi c0 \ of c0 X1 =&gt; of (app c0 c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">16</span> user:rule = pi 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">16</span> user:subgoal = <span class="mi">17</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">17</span> user:newgoal = of c0 X1 =&gt; of (app c0 c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">17</span> user:rule:pi = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">4</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">17</span> user:curgoal = =&gt; 
+                                   of c0 X1 =&gt; of (app c0 c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">17</span> user:rule = implication 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">17</span> user:subgoal = <span class="mi">18</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">18</span> user:newgoal = of (app c0 c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">18</span> user:rule:implication = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">18</span> user:curgoal = of 
+                                   of (app c0 c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">18</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">18</span> user:rule:backchain:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">10</span>, column <span class="mi">2</span>, characters <span class="mi">293</span>-<span class="mi">343</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">4</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">18</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">10</span>, column <span class="mi">2</span>, characters <span class="mi">293</span>-<span class="mi">343</span>: 
+                                              (of (app A0 A3) A2) :- (
+                                               of A0 (arr A1 A2)), 
+                                               (of A3 A1). 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A0 := c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A3 := c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A2 := X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">18</span> user:subgoal = <span class="mi">19</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:newgoal = of c0 (arr X3^<span class="mi">1</span> X2) 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:subgoal = <span class="mi">20</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">20</span> user:newgoal = of c0 X3^<span class="mi">1</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">6</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">19</span> user:curgoal = of 
+                                   of c0 (arr X3^<span class="mi">1</span> X2) 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">19</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">19</span> user:rule:backchain:candidates = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">19</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+                                              (of c0 X1) :- . 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">0</span> user:assign:expand = X3^<span class="mi">1</span> := X4 c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">0</span> user:assign:restrict = <span class="mi">0</span> X4 c0 := c0 \
+                                          .X5 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">0</span> user:assign = X1 := arr X5 X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">19</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">7</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:curgoal = of 
+                                   of c0 X5 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:rule:backchain:candidates = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">6</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+                                              (of c0 (arr X5 X2)) :- . 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:backchain:<span class="kp">fail</span>-to = <span class="nb">unify</span> X5 <span class="kr">with</span> arr X5 X2 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">7</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:rule:backchain = <span class="kp">fail</span> 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">The <span class="nb">elpi</span> tactic/command stlc failed without giving a
+specific error message. Please report this
+inconvenience to the authors of the program.</blockquote></div></div></small></span></pre><p>The trace can be limited to a range of steps. Look at the
+numbers <tt class="docutils literal">run HERE {{{</tt>.</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> <span class="mi">6</span> <span class="mi">8</span>.</span><span class="alectryon-wsp">
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk23" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk23"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
+
+  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
+
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">6</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">27</span> user:curgoal = pi 
+                                   pi c1 \ of c1 X0 =&gt; of c0 X1 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">27</span> user:rule = pi 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">27</span> user:subgoal = <span class="mi">28</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">28</span> user:newgoal = of c1 X0 =&gt; of c0 X1 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">28</span> user:rule:pi = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">7</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">28</span> user:curgoal = =&gt; 
+                                   of c1 X0 =&gt; of c0 X1 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">28</span> user:rule = implication 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">28</span> user:subgoal = <span class="mi">29</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">29</span> user:newgoal = of c0 X1 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">29</span> user:rule:implication = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">29</span> user:curgoal = of 
+                                   of c0 X1 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">29</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">29</span> user:rule:backchain:candidates = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">29</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+                                              (of c0 X2) :- . 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X2 := X1 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">29</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">arr X1 (arr X0 X1)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X1 (arr X0 X1)</blockquote></div></div></small></span></pre><p>The trace can be limited to a (list of) predicates as follows:</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> <span class="s2">&quot;of&quot;</span>.</span><span class="alectryon-wsp">
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk24" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk24"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
+
+  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
+
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">2</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">31</span> user:curgoal = of 
+                                   of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">31</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">31</span> user:rule:backchain:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">3</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">31</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+                                              (of (<span class="kr">fun</span> <span class="nv">A0</span>) (arr A2 A1)) :- (
+                                               pi (c0 \
+                                                (of c0 A2 =&gt; of (A0 c0) A1))). 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = A0 := c0 \
+                                 <span class="kr">fun</span> <span class="nv">c1</span> \ c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = X0 := arr X1 X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">31</span> user:subgoal = <span class="mi">33</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">33</span> user:newgoal = pi c0 \ of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">33</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">35</span> user:curgoal = of 
+                                   of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">35</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">35</span> user:rule:backchain:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">4</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">35</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">2</span>, characters <span class="mi">459</span>-<span class="mi">514</span>: 
+                                              (of (<span class="kr">fun</span> <span class="nv">A0</span>) (arr A2 A1)) :- (
+                                               pi (c0 \
+                                                (of c0 A2 =&gt; of (A0 c0) A1))). 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A0 := c1 \
+                                 c0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = X2 := arr X3 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">35</span> user:subgoal = <span class="mi">36</span> 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">36</span> user:newgoal = pi c1 \ of c1 X3 =&gt; of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">36</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">38</span> user:curgoal = of 
+                                   of c0 X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">38</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">38</span> user:rule:backchain:candidates = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">38</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+                                              (of c0 X1) :- . 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X1 := X4 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">38</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">arr X4 (arr X3 X4)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X4 (arr X3 X4)</blockquote></div></div></small></span></pre><p>One can combine the range of steps with the predicate:</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> <span class="mi">6</span> <span class="mi">8</span> <span class="s2">&quot;of&quot;</span>.</span><span class="alectryon-wsp">
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk25" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk25"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
+
+  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
+
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">47</span> user:curgoal = of 
+                                   of c0 X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">47</span> user:rule = backchain 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">47</span> user:rule:backchain:candidates = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">47</span> user:rule:backchain:<span class="kp">try</span> = File <span class="s2">&quot;(context step_id:4)&quot;</span>, line <span class="mi">1</span>, column <span class="mi">0</span>, characters <span class="mi">0</span>-<span class="mi">0</span>: 
+                                              (of c0 X1) :- . 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X1 := X0 
+</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">47</span> user:rule:backchain = success 
+</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">arr X0 (arr X2 X0)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X0 (arr X2 X0)</blockquote></div></div></small></span></pre><p>To switch traces off:</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> Off.</span></span></pre></div>
+<div class="section" id="good-old-print">
+<h2><a class="toc-backref" href="#toc-entry-17">Good old print</a></h2>
 <p>A common λProlog idiom is to have a debug rule
 lying around.  The <code class="e elpi"><span class="err">:</span>if</code> attribute can be used to
 make the rule conditionally interpreted (only if the
@@ -1115,273 +1460,96 @@ given debug variable is set).</p>
   mypred <span class=" -ElpiVariable">M</span> <span class="k k-ElpiKeyword">:-</span> <span class=" -ElpiVariable">N</span> <span class="k k-ElpiKeyword">is</span> <span class=" -ElpiVariable">M</span> <span class="k k-ElpiKeyword">-</span> <span class="m m-ElpiInteger">1</span><span class="k k-ElpiKeyword">,</span> mypred <span class=" -ElpiVariable">N</span>.
 
 <span class="si">}}</span>.</span><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk20" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk20"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> mypred <span class="m m-ElpiInteger">3</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">calling mypred on  <span class="mi">3</span></blockquote><blockquote class="alectryon-message">calling mypred on  <span class="mi">2</span></blockquote><blockquote class="alectryon-message">calling mypred on  <span class="mi">1</span></blockquote><blockquote class="alectryon-message">calling mypred on  <span class="mi">0</span></blockquote><blockquote class="alectryon-message">ok</blockquote></div></div></small></span></pre><p>As a slightly more sophisticated debugging feature, the Elpi interpreter
-provides tracing facilities.</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span>.</span><span class="alectryon-wsp">
-</span></span><span class="alectryon-wsp">
-</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk21" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk21"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span> <span class="c">% We run the query in the stlc program</span>
-
-  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
-
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">1</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">5</span> user:curgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 , coq.say X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">5</span> user:rule = <span class="kn">and</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">5</span> user:subgoal = <span class="mi">6</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">6</span> user:newgoal = coq.say X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">5</span> user:subgoal = <span class="mi">7</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">1</span> gid:<span class="mi">7</span> user:newgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">2</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">7</span> user:curgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">7</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">7</span> user:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">3</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">7</span> user:select = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-                                 of (<span class="kr">fun</span> <span class="nv">A0</span>) 
-                                  (arr A1 A2) :- (pi (c0 \
-                                                   (of c0 A1 =&gt; of (A0 c0) A2))). 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = A0 := c0 \
-                                 <span class="kr">fun</span> <span class="nv">c1</span> \ c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = X0 := arr X1 X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">7</span> user:subgoal = <span class="mi">8</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">2</span> gid:<span class="mi">8</span> user:newgoal = pi c0 \ of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">3</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">8</span> user:curgoal = pi c0 \ of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">8</span> user:rule = pi 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">8</span> user:subgoal = <span class="mi">9</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">3</span> gid:<span class="mi">9</span> user:newgoal = of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">4</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">9</span> user:curgoal = of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">9</span> user:rule = implication 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">9</span> user:subgoal = <span class="mi">10</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">4</span> gid:<span class="mi">10</span> user:newgoal = of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">001</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">10</span> user:curgoal = of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">10</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">10</span> user:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">4</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">10</span> user:select = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-                                  of (<span class="kr">fun</span> <span class="nv">A0</span>) 
-                                   (arr A1 A2) :- (pi (c1 \
-                                                    (of c0 A1 =&gt;
-                                                      of (A0 c1) A2))). 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A0 := c1 \
-                                 c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = X2 := arr X3 X4 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">10</span> user:subgoal = <span class="mi">11</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">5</span> gid:<span class="mi">11</span> user:newgoal = pi c1 \ of c1 X3 =&gt; of c0 X4 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">6</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">11</span> user:curgoal = pi c1 \ of c1 X3 =&gt; of c0 X4 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">11</span> user:rule = pi 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">11</span> user:subgoal = <span class="mi">12</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">6</span> gid:<span class="mi">12</span> user:newgoal = of c1 X3 =&gt; of c0 X4 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">7</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">12</span> user:curgoal = of c1 X3 =&gt; of c0 X4 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">12</span> user:rule = implication 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">12</span> user:subgoal = <span class="mi">13</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">7</span> gid:<span class="mi">13</span> user:newgoal = of c0 X4 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">13</span> user:curgoal = of c0 X4 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">13</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">13</span> user:candidates = hypothetical clause: of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">13</span> user:select =  
-                                  of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X1 := X4 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">9</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">9</span> gid:<span class="mi">6</span> user:curgoal = coq.say (arr X4 (arr X3 X4)) 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">9</span> gid:<span class="mi">6</span> user:rule = builtin 
-</blockquote><blockquote class="alectryon-message">arr X4 (arr X3 X4)</blockquote><blockquote class="alectryon-message">rid:<span class="mi">0</span> step:<span class="mi">9</span> gid:<span class="mi">6</span> user:builtin = success 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X4 (arr X3 X4)</blockquote></div></div></small><span class="alectryon-wsp">
-</span></span><span class="alectryon-wsp">
-</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk22" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk22"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
-
-  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">app</span> x x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
-
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">1</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">14</span> user:curgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0) X0 , coq.say X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">14</span> user:rule = <span class="kn">and</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">14</span> user:subgoal = <span class="mi">15</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">15</span> user:newgoal = coq.say X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">14</span> user:subgoal = <span class="mi">16</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">1</span> gid:<span class="mi">16</span> user:newgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0) X0 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">2</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">16</span> user:curgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ app c0 c0) X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">16</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">16</span> user:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">3</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">16</span> user:select = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-                                  of (<span class="kr">fun</span> <span class="nv">A0</span>) 
-                                   (arr A1 A2) :- (pi (c0 \
-                                                    (of c0 A1 =&gt;
-                                                      of (A0 c0) A2))). 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = A0 := c0 \
-                                 app c0 c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = X0 := arr X1 X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">16</span> user:subgoal = <span class="mi">17</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">2</span> gid:<span class="mi">17</span> user:newgoal = pi c0 \ of c0 X1 =&gt; of (app c0 c0) X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">3</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">17</span> user:curgoal = pi c0 \ of c0 X1 =&gt; of (app c0 c0) X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">17</span> user:rule = pi 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">17</span> user:subgoal = <span class="mi">18</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">3</span> gid:<span class="mi">18</span> user:newgoal = of c0 X1 =&gt; of (app c0 c0) X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">4</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">18</span> user:curgoal = of c0 X1 =&gt; of (app c0 c0) X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">18</span> user:rule = implication 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">18</span> user:subgoal = <span class="mi">19</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">4</span> gid:<span class="mi">19</span> user:newgoal = of (app c0 c0) X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:curgoal = of (app c0 c0) X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">10</span>, column <span class="mi">564</span>, characters <span class="mi">787</span>-<span class="mi">838</span>: 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">4</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:select = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">10</span>, column <span class="mi">564</span>, characters <span class="mi">787</span>-<span class="mi">838</span>: 
-                                  of (app A0 A1) A2 :- (of A0 (arr A3 A2)), 
-                                   (of A1 A3). 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A0 := c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A1 := c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A2 := X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:subgoal = <span class="mi">20</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">20</span> user:newgoal = of c0 X3^<span class="mi">1</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">19</span> user:subgoal = <span class="mi">21</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">5</span> gid:<span class="mi">21</span> user:newgoal = of c0 (arr X3^<span class="mi">1</span> X2) 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">6</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">21</span> user:curgoal = of c0 (arr X3^<span class="mi">1</span> X2) 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">21</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">21</span> user:candidates = hypothetical clause: of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">21</span> user:select =  
-                                  of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">0</span> user:assign(expand) = X3^<span class="mi">1</span> := X4 c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">0</span> user:assign(restrict) = <span class="mi">0</span> X4 c0 := c0 \
-                                           .X5 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">6</span> gid:<span class="mi">0</span> user:assign = X1 := arr X5 X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">7</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:curgoal = of c0 X5 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:candidates = hypothetical clause: of c0 
-                                                            (arr X5 X2) :- . 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">6</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:select =  
-                                  of c0 (arr X5 X2) :- . 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:select = <span class="kp">fail</span> to <span class="nb">unify</span>: .&lt;&lt;c0 \ .X5&gt;_0 c0&gt;_1
-                                    <span class="kr">with</span> .&lt;arr .X5 .X2&gt;_0 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">7</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">1</span> step:<span class="mi">7</span> gid:<span class="mi">20</span> user:select = <span class="kp">fail</span> 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">The <span class="nb">elpi</span> command stlc failed without giving a specific
-error message. Please report this inconvenience to the
-authors of the program.</blockquote></div></div></small></span></pre><p>The trace can be limited to a range of steps. Look at the
-numbers <tt class="docutils literal">run HERE {{{</tt>.</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> <span class="mi">6</span> <span class="mi">8</span>.</span><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk23" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk23"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
-
-  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
-
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">6</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">28</span> user:curgoal = pi c1 \ of c1 X0 =&gt; of c0 X1 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">28</span> user:rule = pi 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">28</span> user:subgoal = <span class="mi">29</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">6</span> gid:<span class="mi">29</span> user:newgoal = of c1 X0 =&gt; of c0 X1 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">001</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">7</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">29</span> user:curgoal = of c1 X0 =&gt; of c0 X1 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">29</span> user:rule = implication 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">29</span> user:subgoal = <span class="mi">30</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">7</span> gid:<span class="mi">30</span> user:newgoal = of c0 X1 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">30</span> user:curgoal = of c0 X1 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">30</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">30</span> user:candidates = hypothetical clause: of c0 X2 :- . 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">30</span> user:select =  
-                                  of c0 X2 :- . 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">2</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X2 := X1 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">arr X1 (arr X0 X1)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X1 (arr X0 X1)</blockquote></div></div></small></span></pre><p>The trace can be limited to a (list of) predicates as follows:</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> <span class="s2">&quot;of&quot;</span>.</span><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk24" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk24"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
-
-  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
-
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">2</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">33</span> user:curgoal = of (<span class="kr">fun</span> <span class="nv">c0</span> \ <span class="kr">fun</span> <span class="nv">c1</span> \ c0) X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">33</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">33</span> user:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">3</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">33</span> user:select = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-                                  of (<span class="kr">fun</span> <span class="nv">A0</span>) 
-                                   (arr A1 A2) :- (pi (c0 \
-                                                    (of c0 A1 =&gt;
-                                                      of (A0 c0) A2))). 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = A0 := c0 \
-                                 <span class="kr">fun</span> <span class="nv">c1</span> \ c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">0</span> user:assign = X0 := arr X1 X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">33</span> user:subgoal = <span class="mi">34</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">2</span> gid:<span class="mi">34</span> user:newgoal = pi c0 \ of c0 X1 =&gt; of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">36</span> user:curgoal = of (<span class="kr">fun</span> <span class="nv">c1</span> \ c0) X2 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">36</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">36</span> user:candidates = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">4</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">36</span> user:select = File <span class="s2">&quot;(stdin)&quot;</span>, line <span class="mi">15</span>, column <span class="mi">568</span>, characters <span class="mi">952</span>-<span class="mi">1007</span>: 
-                                  of (<span class="kr">fun</span> <span class="nv">A0</span>) 
-                                   (arr A1 A2) :- (pi (c1 \
-                                                    (of c0 A1 =&gt;
-                                                      of (A0 c1) A2))). 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = A0 := c1 \
-                                 c0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">0</span> user:assign = X2 := arr X3 X4 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">36</span> user:subgoal = <span class="mi">37</span> 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">5</span> gid:<span class="mi">37</span> user:newgoal = pi c1 \ of c1 X3 =&gt; of c0 X4 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">39</span> user:curgoal = of c0 X4 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">39</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">39</span> user:candidates = hypothetical clause: of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">39</span> user:select =  
-                                  of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">3</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X1 := X4 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">arr X4 (arr X3 X4)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X4 (arr X3 X4)</blockquote></div></div></small></span></pre><p>One can combine the range of steps with the predicate:</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> <span class="mi">6</span> <span class="mi">8</span> <span class="s2">&quot;of&quot;</span>.</span><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk25" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk25"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
-
-  of (<span class="k k-ElpiKeyword">fun</span> (<span class=" -ElpiVariable">x\</span> <span class="k k-ElpiKeyword">fun</span> <span class=" -ElpiVariable">y\</span> x)) <span class=" -ElpiVariable">Ty</span><span class="k k-ElpiKeyword">,</span> coq.say <span class=" -ElpiVariable">Ty</span>
-
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">run <span class="mi">8</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">48</span> user:curgoal = of c0 X0 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">48</span> user:rule = backchain 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">48</span> user:candidates = hypothetical clause: of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">select <span class="mi">5</span> {{{  
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">48</span> user:select =  
-                                  of c0 X1 :- . 
-</blockquote><blockquote class="alectryon-message">rid:<span class="mi">4</span> step:<span class="mi">8</span> gid:<span class="mi">0</span> user:assign = X1 := X0 
-</blockquote><blockquote class="alectryon-message">}}} -&gt;  (<span class="mi">0</span>.<span class="mi">000</span>s)</blockquote><blockquote class="alectryon-message">arr X0 (arr X2 X0)</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">Ty = arr X0 (arr X2 X0)</blockquote></div></div></small></span></pre><p>To switch traces off:</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Trace</span> Off.</span></span></pre><p>Given that programs are not written in a single place, but rather obtained by
-accumulating code, Elpi is able to print a (full) program to an html file
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk26" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk26"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> mypred <span class="m m-ElpiInteger">3</span> <span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">calling mypred on  <span class="mi">3</span></blockquote><blockquote class="alectryon-message">calling mypred on  <span class="mi">2</span></blockquote><blockquote class="alectryon-message">calling mypred on  <span class="mi">1</span></blockquote><blockquote class="alectryon-message">calling mypred on  <span class="mi">0</span></blockquote><blockquote class="alectryon-message">ok</blockquote></div></div></small></span></pre></div>
+<div class="section" id="printing-entire-programs">
+<h2><a class="toc-backref" href="#toc-entry-18">Printing entire programs</a></h2>
+<p>Given that programs are not written in a single place, but rather obtained by
+accumulating code, Elpi is able to print a (full) program to an text file
 as follows. The obtained file provides a facility to filter rules by their
-predicate.</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Print</span> stlc <span class="s2">&quot;stlc.html&quot;</span>.</span></span></pre><p>Look at the <a class="reference external" href="https://lpcic.github.io/coq-elpi/stlc.html">generated page</a>
-and type <code class="e elpi">of</code> in the filter.</p>
-<p>Finally, one can bound the number of backchaining steps
+predicate. Note that the first component of the path is a Coq Load Path (i.e.
+coqc options -R and -Q), the text file will be placed in the directory
+bound to it.</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Print</span> stlc <span class="s2">&quot;elpi_examples/stlc&quot;</span>.</span></span></pre><p>Look at the <a class="reference external" href="https://lpcic.github.io/coq-elpi/stlc.txt">generated page</a>.
+Finally, one can bound the number of backchaining steps
 performed by the interpreter:</p>
 <pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> <span class="m m-ElpiInteger">0</span> <span class="k k-ElpiKeyword">=</span> <span class="m m-ElpiInteger">0</span><span class="k k-ElpiKeyword">,</span> <span class="m m-ElpiInteger">1</span> <span class="k k-ElpiKeyword">=</span> <span class="m m-ElpiInteger">1</span> <span class="si">}}</span>.</span><span class="alectryon-wsp">
 </span></span><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Bound</span> <span class="kn">Steps</span> <span class="mi">1</span>.</span><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk26" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk26"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> <span class="m m-ElpiInteger">0</span> <span class="k k-ElpiKeyword">=</span> <span class="m m-ElpiInteger">0</span><span class="k k-ElpiKeyword">,</span> <span class="m m-ElpiInteger">1</span> <span class="k k-ElpiKeyword">=</span> <span class="m m-ElpiInteger">1</span> <span class="si">}}</span>. <span class="c">(* it needs 2 steps! *)</span></label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="nb">elpi</span> run out of steps (<span class="mi">1</span>)</blockquote></div></div></small><span class="alectryon-wsp">
-</span></span><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Bound</span> <span class="kn">Steps</span> <span class="mi">0</span>. <span class="c">(* Go back to no bound *)</span></span></span></pre><div class="section" id="pitfalls">
-<h2><a class="toc-backref" href="#id18">Pitfalls</a></h2>
-<p>The precedence of <code class="e elpi"><span class="k-ElpiKeyword">,</span></code> and <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> can be surprising</p>
-<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk27" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk27"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
+</span></span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk27" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk27"><span class="kn">Elpi</span> <span class="kn">Query</span> <span class="si">lp:{{</span> <span class="m m-ElpiInteger">0</span> <span class="k k-ElpiKeyword">=</span> <span class="m m-ElpiInteger">0</span><span class="k k-ElpiKeyword">,</span> <span class="m m-ElpiInteger">1</span> <span class="k k-ElpiKeyword">=</span> <span class="m m-ElpiInteger">1</span> <span class="si">}}</span>. <span class="c">(* it needs 2 steps! *)</span></label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="nb">elpi</span> run out of steps (<span class="mi">1</span>)</blockquote></div></div></small><span class="alectryon-wsp">
+</span></span><span class="alectryon-sentence"><span class="alectryon-input"><span class="kn">Elpi</span> <span class="kn">Bound</span> <span class="kn">Steps</span> <span class="mi">0</span>. <span class="c">(* Go back to no bound *)</span></span></span></pre></div>
+<div class="section" id="common-pitfalls">
+<h2><a class="toc-backref" href="#toc-entry-19">Common pitfalls</a></h2>
+<p>Well, no programming language is perfect.</p>
+<div class="section" id="precedence-of-e-and">
+<h3><a class="toc-backref" href="#toc-entry-20">Precedence of <code class="e elpi"><span class="k-ElpiKeyword">,</span></code>, :e: <code class="highlight coq"><span class="o">==&gt;</span></code> and <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code></a></h3>
+<p>In this tutorial we only used :e: <code class="highlight coq"><span class="o">==&gt;</span></code> but Elpi also provides
+the standard λProlog implication <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code>. They have the same meaning
+but different precedences w.r.t. <code class="e elpi"><span class="k-ElpiKeyword">,</span></code>.</p>
+<p>The code <code class="e elpi">a<span class="k-ElpiKeyword">,</span> c <span class="k-ElpiKeyword">==&gt;</span> d<span class="k-ElpiKeyword">,</span> e</code> reads <code class="e elpi">a<span class="k-ElpiKeyword">,</span> (c <span class="k-ElpiKeyword">==&gt;</span> <span class="o">(</span>d<span class="k-ElpiKeyword">,</span>e<span class="o">))</span></code>, that means that
+the rule <code class="e elpi">c</code> is available to both <code class="e elpi">d</code> and <code class="e elpi">e</code>.</p>
+<p>On the contrary the code <code class="e elpi">a<span class="k-ElpiKeyword">,</span> c <span class="k-ElpiKeyword">=&gt;</span> d<span class="k-ElpiKeyword">,</span> e</code> reads <code class="e elpi">a<span class="k-ElpiKeyword">,</span> (c <span class="k-ElpiKeyword">==&gt;</span> d<span class="o">)</span><span class="k-ElpiKeyword">,</span> e</code>,
+making <code class="e elpi">c</code> only available to <code class="e elpi">d</code>.</p>
+<p>So, <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> binds stronger than <code class="e elpi"><span class="k-ElpiKeyword">,</span></code>, while <code class="e elpi"><span class="k-ElpiKeyword">==&gt;</span></code> binds stronger only
+on the left.</p>
+<p>According to our experience the precedence of <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> is a common source
+of mistakes for beginners, if only because it is not stable by adding of
+debug prints, that is <code class="e elpi">a <span class="k-ElpiKeyword">=&gt;</span> b</code> and <code class="e elpi">a <span class="k-ElpiKeyword">=&gt;</span> print <span class="s2">&quot;doing b&quot;</span><span class="k-ElpiKeyword">,</span> b</code> have
+very different meaning (<code class="e elpi">a</code> becomes only available to <code class="highlight coq"><span class="n">print</span></code>!).</p>
+<p>In this tutorial we only used <code class="e elpi"><span class="k-ElpiKeyword">==&gt;</span></code> that was introduced in Elpi 2.0, but
+there is code out there using <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code>. Elpi 2.0 raises a warning if the
+right hand side of <code class="e elpi"><span class="k-ElpiKeyword">=&gt;</span></code> is a conjenction with no parentheses.</p>
+<p>A concrete example:</p>
+<pre class="alectryon-io highlight"><!-- Generator: Alectryon --><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk28" style="display: none" type="checkbox"><label class="alectryon-input alectryon-failed" for="tutorial-elpi-lang-v-chk28"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
 
    <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\
      of x <span class=" -ElpiVariable">A</span> <span class="k k-ElpiKeyword">=&gt;</span> of x <span class=" -ElpiVariable">B</span><span class="k k-ElpiKeyword">,</span> of x <span class=" -ElpiVariable">C</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">The <span class="nb">elpi</span> command stlc failed without giving a specific
-error message. Please report this inconvenience to the
-authors of the program.</blockquote></div></div></small><span class="alectryon-wsp">
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">42</span>-<span class="mi">58</span>
+The standard <span class="kr">λ</span><span class="nv">Prolog</span> <span class="nv">infix</span> <span class="nv">operator</span> <span class="nv">for</span> <span class="nv">implication</span> =&gt; has higher precedence
+than conjunction. This means that &#39;A =&gt; B, C&#39; reads &#39;(A =&gt; B), C&#39;.
+This <span class="kr">is</span> a common mistake since it makes A <span class="kp">only</span> available to B (<span class="kn">and</span> not to C
+<span class="kr">as</span> many newcomers may expect).
+If this <span class="kr">is</span> really what you want write &#39;(A =&gt; B), C&#39; to silence this warning.
+Otherwise write &#39;A =&gt; (B, C)&#39;, or use the alternative implication operator ==&gt;.
+<span class="kn">Infix</span> ==&gt;  has lower precedence than conjunction, hence
+&#39;A ==&gt; B, C&#39; reads &#39;A ==&gt; (B, C)&#39; <span class="kn">and</span> means the same <span class="kr">as</span> &#39;A =&gt; (B, C)&#39;.
+[<span class="nb">elpi</span>.implication-precedence,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">47</span>-<span class="mi">48</span>
+A <span class="kr">is</span> linear: name it _A (discard) or A_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">57</span>-<span class="mi">58</span>
+B <span class="kr">is</span> linear: name it _B (discard) or B_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">65</span>-<span class="mi">66</span>
+C <span class="kr">is</span> linear: name it _C (discard) or C_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">The <span class="nb">elpi</span> tactic/command stlc failed without giving a
+specific error message. Please report this
+inconvenience to the authors of the program.</blockquote></div></div></small><span class="alectryon-wsp">
 </span></span><span class="alectryon-wsp">
-</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk28" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk28"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk29" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk29"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
 
   <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\
     of x <span class=" -ElpiVariable">A</span> <span class="k k-ElpiKeyword">=&gt;</span> (of x <span class=" -ElpiVariable">B</span><span class="k k-ElpiKeyword">,</span> of x <span class=" -ElpiVariable">C</span>) <span class="c">% both goals see of x A</span>
 
-<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = X0</blockquote><blockquote class="alectryon-message">B = X0</blockquote><blockquote class="alectryon-message">C = X0</blockquote></div></div></small></span></pre><p>Backtracking can lead to weird execution traces. The <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L678">std.do!</a> predicate
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">126</span>-<span class="mi">127</span>
+A <span class="kr">is</span> linear: name it _A (discard) or A_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">137</span>-<span class="mi">138</span>
+B <span class="kr">is</span> linear: name it _B (discard) or B_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">145</span>-<span class="mi">146</span>
+C <span class="kr">is</span> linear: name it _C (discard) or C_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = X0</blockquote><blockquote class="alectryon-message">B = X0</blockquote><blockquote class="alectryon-message">C = X0</blockquote></div></div></small><span class="alectryon-wsp">
+</span></span><span class="alectryon-wsp">
+</span><span class="alectryon-sentence"><input class="alectryon-toggle" id="tutorial-elpi-lang-v-chk2a" style="display: none" type="checkbox"><label class="alectryon-input" for="tutorial-elpi-lang-v-chk2a"><span class="kn">Elpi</span> <span class="kn">Query</span> stlc <span class="si">lp:{{</span>
+
+  <span class="k k-ElpiKeyword">pi</span> <span class=" -ElpiVariable">x</span>\
+    of x <span class=" -ElpiVariable">A</span> <span class="k k-ElpiKeyword">==&gt;</span> of x <span class=" -ElpiVariable">B</span><span class="k k-ElpiKeyword">,</span> of x <span class=" -ElpiVariable">C</span>
+
+<span class="si">}}</span>.</label><small class="alectryon-output"><div><div class="alectryon-messages"><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">218</span>-<span class="mi">219</span>
+A <span class="kr">is</span> linear: name it _A (discard) or A_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">229</span>-<span class="mi">230</span>
+B <span class="kr">is</span> linear: name it _B (discard) or B_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message">Toplevel input, characters <span class="mi">237</span>-<span class="mi">238</span>
+C <span class="kr">is</span> linear: name it _C (discard) or C_ (<span class="kp">fresh</span> variable)
+[<span class="nb">elpi</span>.linear-variable,<span class="nb">elpi</span>.typecheck,<span class="nb">elpi</span>,default]</blockquote><blockquote class="alectryon-message"><span class="kn">Query</span> assignments:</blockquote><blockquote class="alectryon-message">A = X0</blockquote><blockquote class="alectryon-message">B = X0</blockquote><blockquote class="alectryon-message">C = X0</blockquote></div></div></small></span></pre></div>
+<div class="section" id="backtracking-1">
+<h3><a class="toc-backref" href="#toc-entry-21">Backtracking</a></h3>
+<p>Backtracking can lead to weird execution traces. The <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L718">std.do!</a> predicate
 should be used to write non-backtracking code.</p>
 <pre class="code elpi literal-block">
 <span class="k-ElpiKeyword">pred</span> <span class="n-ElpiFunction">not-a-backtracking-one</span>.
@@ -1394,12 +1562,35 @@ not-a-backtracking-one <span class="k-ElpiKeyword">:-</span> condition<span clas
 <p>In the example above once <code class="e elpi">condition</code> holds we start a sequence of
 steps which we will not reconsider. Locally, backtracking is still
 available, e.g. between <code class="e elpi">generate</code> and <code class="e elpi">test</code>.
-See also the <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L690">std.spy-do!</a> predicate which prints each and every step,
-and the <a class="stdlib ghref reference external" href="https://github.com/LPCIC/coq-elpi/blob/c7d5fd9be7447df576466d9df08a0fe79a242491/elpi-builtin.elpi#L468">std.spy</a> one which can be used to spy on a single one.</p>
+See also the <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L730">std.spy-do!</a> predicate which prints each and every step,
+and the <a class="reference external stdlib ghref" href="https://github.com/LPCIC/coq-elpi/blob/521482264e3c8912083ee9a8b347930b942b0c37/builtin-doc/elpi-builtin.elpi#L488">std.spy</a> one which can be used to spy on a single one.</p>
+</div>
+<div class="section" id="unification-variables-v-s-imperative-variables">
+<h3><a class="toc-backref" href="#toc-entry-22">Unification variables v.s. Imperative variables</a></h3>
+<p>Unification variables sit in between variables in imperative programming and
+functional programming. In imperative programming a variable can hold a value,
+and that value can change over time via assignment. In functional languages
+variables always hold a value, and that value never changes. In logic programming
+a unification variable can either be unset (no value) or set to a value that
+never changes. Backtracking goes back in time, it is not visible to the program.</p>
+<p>As a result of this, code like</p>
+<pre class="code elpi literal-block">
+<span class="k-ElpiKeyword">pred</span> <span class="n-ElpiFunction">bad-example</span>.
+bad-example <span class="k-ElpiKeyword">:-</span> <span class="n-ElpiVariable">X</span> <span class="k-ElpiKeyword">is</span> <span class="m-ElpiInteger">1</span> <span class="k-ElpiKeyword">+</span> <span class="m-ElpiInteger">2</span><span class="k-ElpiKeyword">,</span> <span class="n-ElpiVariable">X</span> <span class="k-ElpiKeyword">is</span> <span class="m-ElpiInteger">4</span> <span class="k-ElpiKeyword">+</span> <span class="m-ElpiInteger">5</span><span class="o">.</span>
+</pre>
+<p>fails, because <code class="e elpi"><span class="n-ElpiVariable">X</span></code> cannot be at the same time 3 and 9. Initially
+<code class="e elpi"><span class="n-ElpiVariable">X</span></code> is unset, then it is set to 3, and finally the programmer is
+asserting that 3 (the value hold by <code class="e elpi"><span class="n-ElpiVariable">X</span></code>) is equal to 9.
+The second call to <code class="e elpi"><span class="k-ElpiKeyword">is</span></code> does not change the value carried by <code class="e elpi"><span class="n-ElpiVariable">X</span></code>!</p>
+<p>Unification, and hence the <code class="e elpi"><span class="k-ElpiKeyword">=</span></code> predicate, plays two roles.
+When <code class="e elpi"><span class="n-ElpiVariable">X</span></code> is unset, <code class="e elpi"><span class="n-ElpiVariable">X</span> <span class="k-ElpiKeyword">=</span> v</code> sets the variable.
+When <code class="e elpi"><span class="n-ElpiVariable">X</span></code> is set to <code class="e elpi">u</code>, <code class="e elpi"><span class="n-ElpiVariable">X</span> <span class="k-ElpiKeyword">=</span> v</code> checks if the value
+of <code class="e elpi"><span class="n-ElpiVariable">X</span></code> is equal to <code class="e elpi">u</code>: it is equivalent to  <code class="e elpi">u <span class="k-ElpiKeyword">=</span> v</code>.</p>
+</div>
 </div>
 </div>
 <div class="section" id="further-reading">
-<h1><a class="toc-backref" href="#id19">Further reading</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-23">Further reading</a></h1>
 <p>The <a class="reference external" href="http://www.lix.polytechnique.fr/~dale/lProlog/">λProlog website</a>
 contains useful links to λProlog related material.</p>
 <p>Papers and other documentation about Elpi can be found at
